@@ -22,6 +22,10 @@ public class PhysicsController {
 	private double xSpeed;
 	/** X Direction of the Physics Object */
 	private int xDirection;
+	/** Number of jumps allowed */
+	private int jumpsAllowed;
+	/** Number of jumps taken before landing */
+	private int jumpsRemaining;
 	
 	public static final double STANDARD_GRAVITY = 1.3;
 	public static final double STANDARD_INITIAL_VELOCITY = 20;
@@ -34,11 +38,13 @@ public class PhysicsController {
 	/**
 	 * Constructs a new PhysicsController with given g0 and v0.
 	 */
-	public PhysicsController(double g0, double v0, double xSpeed) {
+	public PhysicsController(double g0, double v0, double xSpeed, int jumpsAllowed) {
 		this.g0 = g0;
 		this.v0 = v0;
 		isJumping = false;
 		this.xSpeed = xSpeed;
+		this.jumpsAllowed = jumpsAllowed;
+		this.jumpsRemaining = jumpsAllowed;
 	}
 	
 	/**
@@ -48,6 +54,8 @@ public class PhysicsController {
 		this.g0 = STANDARD_GRAVITY;
 		this.v0 = 0;
 		this.xSpeed = STANDARD_X_SPEED;
+		this.jumpsAllowed = 2;
+		this.jumpsRemaining = jumpsAllowed;
 	}
 	
 	/**
@@ -71,10 +79,12 @@ public class PhysicsController {
 		xPosition += evaluateXPositionDelta();
 	}
 	
-	public void startJumping() {
-		if(!(isJumping)) {
+	public void jump() {
+		if(jumpsRemaining > 0) {
 			isJumping = true;
 			v0 = STANDARD_INITIAL_VELOCITY;
+			resetTimeElapsed();
+			--jumpsRemaining;
 		}
 	}
 	
@@ -86,6 +96,8 @@ public class PhysicsController {
 	public void stopFalling() {
 		isJumping = false;
 		resetTimeElapsed();
+		jumpsRemaining = jumpsAllowed;
+		
 	}
 	
 	protected void setPosition(double x, double y) {
@@ -139,6 +151,11 @@ public class PhysicsController {
 	@Deprecated
 	public int getDirection() {
 		return xDirection;
+	}
+	
+	@Deprecated
+	public int getJumpsRemaining() {
+		return jumpsRemaining; 
 	}
 	
 	

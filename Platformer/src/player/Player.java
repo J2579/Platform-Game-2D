@@ -12,7 +12,7 @@ public class Player {
 	/** Keyboard State */
 	private boolean[] keyboardState;
 	
-	/* Change these to be modifieable later */
+	/* Change these to be modifiable later */
 	public static final int LEFT_KEY = KeyEvent.VK_LEFT;
 	public static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
 	public static final int JUMP_KEY = KeyEvent.VK_SPACE;
@@ -32,8 +32,6 @@ public class Player {
 														 break;				
 			case RIGHT_KEY: keyboardState[RIGHT_INDEX] = false;
 														 break;
-			case JUMP_KEY:  keyboardState[JUMP_INDEX] =  false;
-		  												 break;
 		}
 	}
 
@@ -54,7 +52,7 @@ public class Player {
 		
 	//	System.out.println(Helper.boolArrayToString(keyboardState));
 	//	System.out.println(physicsController.getDirection());
-	
+	//	System.out.println(physicsController.getJumpsRemaining());
 	
 	}
 	
@@ -83,7 +81,8 @@ public class Player {
 		 * Handle the Y-Movement 
 		 */
 		if(keyboardState[JUMP_INDEX]) {
-			physicsController.startJumping();
+			physicsController.jump();
+			keyboardState[JUMP_INDEX] = false;
 		}
 		
 	}
