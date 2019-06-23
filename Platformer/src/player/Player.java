@@ -28,24 +28,34 @@ public class Player {
 
 	public void handleKeyReleased(int keyCode) {
 		switch(keyCode) {
-
-			case LEFT_KEY: keyboardState[LEFT_INDEX] = false;
+			case LEFT_KEY:  keyboardState[LEFT_INDEX] =  false;
+														 break;				
 			case RIGHT_KEY: keyboardState[RIGHT_INDEX] = false;
-			case JUMP_KEY: keyboardState[JUMP_INDEX] = false;
+														 break;
+			case JUMP_KEY:  keyboardState[JUMP_INDEX] =  false;
+		  												 break;
 		}
 	}
 
 	public void handleKeyPressed(int keyCode) {
 		switch(keyCode) {
 
-			case LEFT_KEY: keyboardState[LEFT_INDEX] = true;
+			case LEFT_KEY:  keyboardState[LEFT_INDEX] =  true;
+														 break;				
 			case RIGHT_KEY: keyboardState[RIGHT_INDEX] = true;
-			case JUMP_KEY: keyboardState[JUMP_INDEX] = true;
+														 break;
+			case JUMP_KEY:  keyboardState[JUMP_INDEX] =  true;
+														 break;
 		}
 	}
 	
 	public void onTick() {
 		handlePhysics();
+		
+	//	System.out.println(Helper.boolArrayToString(keyboardState));
+	//	System.out.println(physicsController.getDirection());
+	
+	
 	}
 	
 	private void handlePhysics() {

@@ -8,4 +8,20 @@ public class Helper {
 		}
 		return 0;
 	}
+	
+	public static String boolArrayToString(boolean[] boolArray) {
+		String s = "{";
+		
+		for(int idx = 0; idx < boolArray.length; ++idx) {
+			s += boolArray[idx];
+			
+			if(idx != boolArray.length - 1) {
+				s += ", ";
+			}
+		}
+		
+		s += "}";
+		
+		return s;
+	}
 }

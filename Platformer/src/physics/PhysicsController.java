@@ -23,8 +23,9 @@ public class PhysicsController {
 	/** X Direction of the Physics Object */
 	private int xDirection;
 	
-	public static final double STANDARD_GRAVITY = 2.579;
-	public static final double STANDARD_INITIAL_VELOCITY = 10.5;
+	public static final double STANDARD_GRAVITY = 1.3;
+	public static final double STANDARD_INITIAL_VELOCITY = 20;
+	public static final double STANDARD_X_SPEED = 6.5;
 	
 	/** If we should be calculating the jumping velocity or not */
 	private boolean isJumping;
@@ -33,10 +34,11 @@ public class PhysicsController {
 	/**
 	 * Constructs a new PhysicsController with given g0 and v0.
 	 */
-	public PhysicsController(double g0, double v0) {
+	public PhysicsController(double g0, double v0, double xSpeed) {
 		this.g0 = g0;
 		this.v0 = v0;
 		isJumping = false;
+		this.xSpeed = xSpeed;
 	}
 	
 	/**
@@ -45,6 +47,7 @@ public class PhysicsController {
 	public PhysicsController() {
 		this.g0 = STANDARD_GRAVITY;
 		this.v0 = 0;
+		this.xSpeed = STANDARD_X_SPEED;
 	}
 	
 	/**
@@ -125,6 +128,31 @@ public class PhysicsController {
 	 * @return The differential of the Y Position for a given tick.
 	 */
 	private double evaluateYPositionDelta() {
-		return (g0 * timeElapsed) + v0;
+		return -1 * (g0 * timeElapsed) + v0;
 	}
+	
+	
+	/*******************************************
+	 * BELOW HERE IS DEBUG STUFF: REMOVE LATER *
+	 *******************************************/
+	
+	@Deprecated
+	public int getDirection() {
+		return xDirection;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
