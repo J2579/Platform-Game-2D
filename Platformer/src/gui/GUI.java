@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import physics.PhysicsController;
 import physics.Position;
 import player.Player;
 
@@ -29,7 +30,7 @@ public class GUI {
 
 	public static final int CANVAS_HEIGHT = 600;
 	public static final int CANVAS_WIDTH = 600;
-	public static final int BOTTOM_SCREEN_OFFSET = 25;
+	public static final int BOTTOM_SCREEN_OFFSET = PhysicsController.SPACER;
 	
 	/**
 	 * Initializes the GUI

@@ -84,9 +84,9 @@ public class Player {
 		/* 
 		 * Handle the Y-Movement 
 		 */
-		if(keyboardState[JUMP_INDEX]) {
-			physicsController.jump();
-			keyboardState[JUMP_INDEX] = false;
+		if(keyboardState[JUMP_INDEX]) { //If we record that a JUMP key was pressed
+			physicsController.jump(); //Jump
+			keyboardState[JUMP_INDEX] = false; //Wait until a distinct JUMP input to jump again
 		}
 		
 	}

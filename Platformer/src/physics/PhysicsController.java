@@ -1,5 +1,8 @@
 package physics;
 
+import gui.GUI;
+import player.Player;
+
 /**
  * Controls a PhysicsObject's Physics
  * 
@@ -14,14 +17,18 @@ public class PhysicsController {
 	private double v0;
 	/** Time elapsed since initial velocity */
 	private double timeElapsed;
+	
+	/** X-Speed of the Physics Object */
+	private double xSpeed;
+	/** X Direction of the Physics Object */
+	private int xDirection;
+	
+	
 	/** X Position of the Physics Object */
 	private double xPosition;
 	/** Y Position of the Physics Object */
 	private double yPosition;
-	/** X Speed of the Physics Object */
-	private double xSpeed;
-	/** X Direction of the Physics Object */
-	private int xDirection;
+	
 	/** Number of jumps allowed */
 	private int jumpsAllowed;
 	/** Number of jumps taken before landing */
@@ -30,6 +37,17 @@ public class PhysicsController {
 	public static final double STANDARD_GRAVITY = 1.3;
 	public static final double STANDARD_INITIAL_VELOCITY = 20;
 	public static final double STANDARD_X_SPEED = 6.5;
+	
+	/*************************************
+	 * Position is calculated at the     *
+	 * BOTTOM-LEFT of the player hitbox. *
+	 *************************************/
+	
+	public static final double LEFT_BORDER = 0.0;
+	public static final double RIGHT_BORDER = (GUI.CANVAS_WIDTH - Player.PLAYER_WIDTH);
+	public static final double BOTTOM_BORDER = 0.0;
+	public static final double TOP_BORDER = GUI.CANVAS_HEIGHT; //Player can be above the screen (for transition animation)
+	public static final int SPACER = 15;
 	
 	/** If we should be calculating the jumping velocity or not */
 	private boolean isJumping;
@@ -63,20 +81,32 @@ public class PhysicsController {
 	 */
 	public void onTick() {
 		
+		//If we're in the air, calculate our movement per tick
 		if(isJumping) {
 			++timeElapsed;
 			yPosition += evaluateYPositionDelta();
 		}
 		
-		/*********************
-		 * CHANGE THIS LATER *
-		 *********************/
-		if(yPosition < 0) {
+		//Bind our Y-Movement to the constraints of the screen
+		if(yPosition < BOTTOM_BORDER) {
 			yPosition = 0;
 			stopFalling();
 		}
+		else if(yPosition > TOP_BORDER) {
+			yPosition = TOP_BORDER;
+			startFalling(); //Remove any remaining upward momentum
+		}
+		
 		
 		xPosition += evaluateXPositionDelta();
+		
+		//Bind our X-Movement to the constraints of the screen
+		if(xPosition < LEFT_BORDER) {
+			xPosition = LEFT_BORDER;
+		}
+		else if(xPosition > RIGHT_BORDER) {
+			xPosition = RIGHT_BORDER;
+		}
 	}
 	
 	public void jump() {
