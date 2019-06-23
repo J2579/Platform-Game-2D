@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import physics.Position;
+import player.Player;
+
 /**
 * This class acts as a driver for the 2D Game
 *
@@ -22,9 +25,13 @@ import javax.swing.Timer;
 public class GUI {
 	private GameWindow gameWindow;
 	private Timer tick;
+	private Player player;
 	
+	//TODO: Change to class constants
 	private int height = 600;
 	private int width = 600;
+	private int playerWidth = 110;
+	private int playerHeight = 25;
 	
 	/**
 	 * Initializes the GUI
@@ -73,6 +80,8 @@ public class GUI {
 		tick = new Timer(17,t); //1 Tick / 0.017 Seconds ~ 60 Ticks / 1 Second 
 		tick.setRepeats(true);
 		tick.start();
+		
+		player = new Player();
 	}
 	
 	
@@ -100,6 +109,7 @@ public class GUI {
 			
 			//On every 'tick' of the internal timer:
 			if(ev == tick) {	
+				player.onTick();
 				gameWindow.update();
 			}
 		}	
@@ -123,7 +133,7 @@ public class GUI {
 		* @param KeyEvent e Keyboard key pressed.
 		*/
 		public void keyPressed(KeyEvent e) {			
-			
+			player.handleKeyPressed(e.getKeyCode());
 		}
 		
 		/**
@@ -135,7 +145,7 @@ public class GUI {
 		*/
 		
 		public void keyReleased(KeyEvent e) {
-
+			player.handleKeyReleased(e.getKeyCode());
 		}
 		
 		/**
@@ -181,7 +191,8 @@ public class GUI {
 		*/
 		public void draw(Graphics g) {
 			g.setColor(Color.RED);
-			g.fillRect(200, 200, 200, 200);
+			Position position = player.getPosition();
+			g.fillRect((int)position.getX(), (int)(height - position.getY() - playerHeight), playerWidth, playerHeight);
 		}
 	}
 }
