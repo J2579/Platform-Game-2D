@@ -12,6 +12,9 @@ public class Player {
 	/** Keyboard State */
 	private boolean[] keyboardState;
 	
+	public static final int PLAYER_WIDTH = 110;
+	public static final int PLAYER_HEIGHT = 25;
+	
 	/* Change these to be modifiable later */
 	public static final int LEFT_KEY = KeyEvent.VK_LEFT;
 	public static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
@@ -28,6 +31,7 @@ public class Player {
 
 	public void handleKeyReleased(int keyCode) {
 		switch(keyCode) {
+		
 			case LEFT_KEY:  keyboardState[LEFT_INDEX] =  false;
 														 break;				
 			case RIGHT_KEY: keyboardState[RIGHT_INDEX] = false;

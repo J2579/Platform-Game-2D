@@ -26,12 +26,10 @@ public class GUI {
 	private GameWindow gameWindow;
 	private Timer tick;
 	private Player player;
-	
-	//TODO: Change to class constants
-	private int height = 600;
-	private int width = 600;
-	private int playerWidth = 110;
-	private int playerHeight = 25;
+
+	public static final int CANVAS_HEIGHT = 600;
+	public static final int CANVAS_WIDTH = 600;
+	public static final int BOTTOM_SCREEN_OFFSET = 25;
 	
 	/**
 	 * Initializes the GUI
@@ -49,8 +47,8 @@ public class GUI {
 	*/
 	public void initialize() {
 		//Create the graphical window.
-		gameWindow = new GameWindow(width,height); 
-		gameWindow.setSize(width,height);
+		gameWindow = new GameWindow(CANVAS_WIDTH,CANVAS_HEIGHT); 
+		gameWindow.setSize(CANVAS_WIDTH,CANVAS_HEIGHT);
 		gameWindow.setVisible(true);
 		
 		//Create the panel, containing the window.
@@ -192,7 +190,14 @@ public class GUI {
 		public void draw(Graphics g) {
 			g.setColor(Color.RED);
 			Position position = player.getPosition();
-			g.fillRect((int)position.getX(), (int)(height - position.getY() - playerHeight), playerWidth, playerHeight);
+			g.fillRect(
+					(int)position.getX(), 
+					(int)(CANVAS_HEIGHT - position.getY() - Player.PLAYER_HEIGHT - BOTTOM_SCREEN_OFFSET), 
+					Player.PLAYER_WIDTH, 
+					Player.PLAYER_HEIGHT
+				);
+			
+			//Next line goes here...
 		}
 	}
 }
